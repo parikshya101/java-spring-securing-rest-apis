@@ -24,15 +24,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @SpringBootApplication
 public class ResolutionsApplication extends WebSecurityConfigurerAdapter {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ResolutionsApplication.class, args);
-	}
-	
-	@Bean
-	UserDetailsService userDetailsService(UserRepository users) {
-		return new UserRepositoryUserDetailsService(users);
-	}
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -40,6 +31,15 @@ public class ResolutionsApplication extends WebSecurityConfigurerAdapter {
 						.mvcMatchers(GET, "/resolutions", "/resolution/**").hasAuthority("resolution:read")
 						.anyRequest().hasAuthority("resolution:write"))
 				.httpBasic(basic -> {});
+	}
+
+	@Bean
+	UserDetailsService userDetailsService(UserRepository users) {
+		return new UserRepositoryUserDetailsService(users);
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(ResolutionsApplication.class, args);
 	}
 
 }
