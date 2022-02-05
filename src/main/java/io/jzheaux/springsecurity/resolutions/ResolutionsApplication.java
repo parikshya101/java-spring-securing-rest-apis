@@ -15,8 +15,14 @@ import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
 import javax.sql.DataSource;
 
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import static org.springframework.http.HttpMethod.GET;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+
 @SpringBootApplication
-public class ResolutionsApplication {
+public class ResolutionsApplication extends WebSecurityConfigurerAdapter {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ResolutionsApplication.class, args);
@@ -32,6 +38,15 @@ public class ResolutionsApplication {
 			}
 		};*/
 		return new JdbcUserDetailsManager(dataSource);
+	}
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+				.authorizeRequests(authz -> authz
+						.mvcMatchers(GET, "/resolutions", "/resolution/**").hasAuthority("resolution:read")
+						.anyRequest().hasAuthority("resolution:write"))
+				.httpBasic(basic -> {});
 	}
 
 }
