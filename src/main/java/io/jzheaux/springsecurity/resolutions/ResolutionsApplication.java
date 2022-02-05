@@ -27,19 +27,7 @@ public class ResolutionsApplication extends WebSecurityConfigurerAdapter {
 	public static void main(String[] args) {
 		SpringApplication.run(ResolutionsApplication.class, args);
 	}
-
-
-/*	@Bean
-	UserDetailsService userDetailsService(DataSource dataSource) {
-*//*		return new JdbcUserDetailsManager(dataSource) {
-			@Override
-			protected List<GrantedAuthority> loadUserAuthorities(String username) {
-				return AuthorityUtils.createAuthorityList("resolution:read");
-			}
-		};*//*
-		return new JdbcUserDetailsManager(dataSource);
-	}*/
-
+	
 	@Bean
 	UserDetailsService userDetailsService(UserRepository users) {
 		return new UserRepositoryUserDetailsService(users);
