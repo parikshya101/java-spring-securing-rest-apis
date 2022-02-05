@@ -29,15 +29,20 @@ public class ResolutionsApplication extends WebSecurityConfigurerAdapter {
 	}
 
 
-	@Bean
+/*	@Bean
 	UserDetailsService userDetailsService(DataSource dataSource) {
-/*		return new JdbcUserDetailsManager(dataSource) {
+*//*		return new JdbcUserDetailsManager(dataSource) {
 			@Override
 			protected List<GrantedAuthority> loadUserAuthorities(String username) {
 				return AuthorityUtils.createAuthorityList("resolution:read");
 			}
-		};*/
+		};*//*
 		return new JdbcUserDetailsManager(dataSource);
+	}*/
+
+	@Bean
+	UserDetailsService userDetailsService(UserRepository users) {
+		return new UserRepositoryUserDetailsService(users);
 	}
 
 	@Override
