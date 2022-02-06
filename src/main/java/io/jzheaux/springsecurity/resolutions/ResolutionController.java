@@ -26,7 +26,7 @@ public class ResolutionController {
 
 	@GetMapping("/resolutions")
 	@PreAuthorize("hasAuthority('resolution:read')")
-	//@PostFilter("@post.filter(#root)")
+	@PostFilter("filterObject.owner == authentication.name")
 	public Iterable<Resolution> read() {
 		return this.resolutions.findAll();
 	}
