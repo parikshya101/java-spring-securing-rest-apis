@@ -26,7 +26,6 @@ public class ResolutionInitializer implements SmartInitializingSingleton {
 				"{bcrypt}$2a$10$MywQEqdZFNIYnx.Ro/VQ0ulanQAl34B5xVjK2I/SDZNVGS5tHQ08W");
 		user.grantAuthority("resolution:read");
 		user.grantAuthority("resolution:write");
-		user.setId(UUID.randomUUID());
 		this.users.save(user);
 
 		User hasread = new User();
@@ -43,8 +42,9 @@ public class ResolutionInitializer implements SmartInitializingSingleton {
 		haswrite.setId(UUID.randomUUID());
 		this.users.save(haswrite);
 
-
-
+		User admin = new User("admin","{bcrypt}$2a$10$bTu5ilpT4YILX8dOWM/05efJnoSlX4ElNnjhNopL9aPoRyUgvXAYa");
+		admin.grantAuthority("ROLE_ADMIN");
+		this.users.save(admin);
 
 	}
 }
